@@ -14,7 +14,8 @@ using System.Linq;
 
 public class MoveCamera : MonoBehaviour
 {
- 
+
+    public GameObject model; 
     private Touch touch;
     private float rotationSpeed = 0.1f;
     private Vector2 fingerUp;
@@ -22,9 +23,7 @@ public class MoveCamera : MonoBehaviour
     private string direction;
     private bool detectSwipeOnlyAfterRelease = false;
 
-    private Vector3[] startPos, endPos;
-
-    private float startTime, lerpTime;
+    
 
     private List<String> labels = new List<string>(); 
 
@@ -35,6 +34,8 @@ public class MoveCamera : MonoBehaviour
     {
         LoadLabels();
         //check if csv has imported correctly Debug.Log("Labels imported"+labels.Count); 
+
+
     }
 
 
@@ -50,23 +51,11 @@ public class MoveCamera : MonoBehaviour
             }
 
             else if (touch.tapCount >= 2)
-            {
-                GameObject model = GameObject.Find("TestModelWithParts");
+            { 
+                LerpRoutine(); 
+                
 
-                Vector3[] startPos = new Vector3[model.transform.childCount];
-                Vector3[] endPos = new Vector3[model.transform.childCount];
 
-                int index = 0; 
-                foreach (Transform transform in model.transform)
-                {
-                    startPos[index] = (Vector3)transform.position;
-                    Debug.Log("Start pos of part " + index + " : " + startPos[index]);
-                    index++;
-                 
-                 
-                //    LerpRoutine(startPos, endPos, startTime, lerpTime);
-                }
-           
             }
         }
     }
@@ -75,7 +64,7 @@ public class MoveCamera : MonoBehaviour
 
     private void Rotate()
     {
-        GameObject model = GameObject.Find("TestModelWithParts"); 
+   
         touch = Input.GetTouch(0);
 
         foreach (Touch touch in Input.touches)
@@ -172,15 +161,40 @@ public class MoveCamera : MonoBehaviour
 
 
 
-    public Vector3 LerpRoutine(Vector3 startPos, Vector3 endPos, float startTime, float lerpTime=1 )
+    private void LerpRoutine()
 
-    { 
-        float timeSinceStart = Time.time - startTime;
-        float percentageComplete = timeSinceStart / lerpTime;
-        var result = Vector3.Lerp(startPos, endPos, percentageComplete);
+    {
+        Vector3[] startPositionOuter = new Vector3[3];
+        Vector3[] endPositionOuter = new Vector3[3];
+        
 
+    //Debug.Log("Size of model  :" + model.transform.childCount);
+        
+        int counter = 0; 
+        foreach (Transform part in model.transform)
+        {
+            while (counter < 3)
+            {
+                float desiredDuration = 3f;
+                float elapsedTime = 0;
 
-        return result; 
+                startPositionOuter[counter] = part.transform.position;
+                endPositionOuter[counter] = part.transform.position = new Vector3(x: part.position.x+10f, y: part.position.y, z: part.position.z);
+                Debug.Log("Start pos: " + startPositionOuter[counter]);
+                Debug.Log("End pos: " + endPositionOuter[counter]);
+
+                elapsedTime += Time.deltaTime;
+                float percentageComplete = elapsedTime / desiredDuration;
+                Debug.Log("Moving position : " + counter); 
+                part.transform.position = Vector3.Lerp(startPositionOuter[counter], endPositionOuter[counter], percentageComplete);
+
+                //KEEP THIS TO CHECK CHILD OF A CHILD Debug.Log(part.transform.childCount);
+                counter++;
+
+            }
+        }
+
+        
     }
 
 

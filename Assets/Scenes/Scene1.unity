@@ -312,6 +312,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6ae7703803e89479031fc1c5cd03e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 964335484}
+--- !u!1 &964335484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
+  m_PrefabInstance: {fileID: 1028017051}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1028017051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -395,9 +401,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0.211
       objectReference: {fileID: 0}
+    - target: {fileID: -3329850779861964252, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.076
+      objectReference: {fileID: 0}
+    - target: {fileID: -3329850779861964252, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3329850779861964252, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
       propertyPath: m_Name
       value: TestModelWithParts
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 429b3d4c987a5cb429395fd235a55678, type: 3}
